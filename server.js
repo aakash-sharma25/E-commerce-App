@@ -3,6 +3,7 @@ const cors = require("cors")
 const { connectDB } = require("./config/db");
 const authRoute = require("./routes/authRoute");
 const categoryRoutes = require("./routes/categoryRoutes");
+const productRoute = require("./routes/productRoute");
 require("dotenv").config();
 
 
@@ -21,6 +22,7 @@ connectDB();
 app.use("/api/v1/auth" , authRoute)
 
 app.use("/api/v1/category" , categoryRoutes)
+app.use("/api/v1/product" , productRoute)
 
 
 
