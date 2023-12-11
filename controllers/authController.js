@@ -19,7 +19,7 @@ exports.registerController = async (req, res) => {
     if (existingUser) {
       return res.status(200).json({
         success: true,
-        message: "User is already registered",
+        message: "User is already registered , Please Login",
       });
     }
 
@@ -35,7 +35,7 @@ exports.registerController = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      message: "user registerd successfully",
+      message: "User registerd successfully",
       user,
     });
   } catch (error) {
@@ -55,7 +55,7 @@ exports.loginController = async (req, res) => {
     if (!email || !password) {
       res.status(404).json({
         success: false,
-        message: "please fill all field",
+        message: "please fill all field , Password or email is empty",
       });
     }
 
