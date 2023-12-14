@@ -5,12 +5,12 @@ const JWT = require("jsonwebtoken");
 
 exports.registerController = async (req, res) => {
   try {
-    const { name, email, password, address, answer } = req.body;
+    const { name, email, password, address ,answer} = req.body;
 
     if (!name || !email || !password || !address || !answer) {
       return res.status(400).json({
         success: false,
-        message: "All field are required,please fill all fields.",
+        message: "all field is required",
       });
     }
 
@@ -19,12 +19,12 @@ exports.registerController = async (req, res) => {
     if (existingUser) {
       return res.status(200).json({
         success: true,
-        message: "User is already registered , Please Login",
+        message: "User is already registered",
       });
     }
 
     const hashedPassword = await hashPassword(password);
-
+    
     const user = await new User({
       name,
       email,
@@ -35,7 +35,7 @@ exports.registerController = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      message: "User registerd successfully",
+      message: "user registerd successfully",
       user,
     });
   } catch (error) {
@@ -55,12 +55,13 @@ exports.loginController = async (req, res) => {
     if (!email || !password) {
       res.status(404).json({
         success: false,
-        message: "please fill all field , Password or email is empty",
+        message: "please fill all field",
       });
     }
 
     //check user
-    const user = await User.findOne({ email: email });
+    const user =await User.findOne({email:email });
+
 
     if (!user) {
       return res.status(400).json({
@@ -77,21 +78,22 @@ exports.loginController = async (req, res) => {
       });
     }
 
-    const token = JWT.sign({ _id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "2d",
-    });
+    const token = JWT.sign({ _id: user._id }, 
+                            process.env.JWT_SECRET, {
+                                    expiresIn: "2d",
+                                    });
     return res.status(200).json({
-      success: true,
-      message: "login successfull",
-      user: {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        address: user.address,
-        role: user.role,
-      },
-      token: token,
-    });
+    success:true,
+    message:"login successfull",
+    user:{
+        _id:user._id,
+        name:user.name,
+        email:user.email,
+        address:user.address,
+        role:user.role,
+    },
+    token:token,
+    })                                
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -102,53 +104,59 @@ exports.loginController = async (req, res) => {
   }
 };
 
+
 //forgot password controller
 
-exports.forgotPasswordController = async (req, res) => {
-  try {
-    const { email, answer, password } = req.body;
+exports.forgotPasswordController = async( req,res) => {
 
-    if (!email || !answer || !password) {
-      res.status(404).json({
-        success: false,
-        message: "all field are required",
-      });
-    }
+      try {
+        const {email , answer , password }= req.body ;
 
-    const user = await User.findOne({ email, answer });
+        if(!email || !answer ||!password){
+          res.status(404).json({
+            success: false,
+            message: "all field are required",
+          });
+        }
 
-    //validation
+        const user = await User.findOne({email , answer})
 
-    if (!user) {
-      res.status(404).json({
-        success: false,
-        message: "user not found",
-      });
-    }
+        //validation
 
-    const hashed = await hashPassword(password);
-    await User.findByIdAndUpdate(user._id, { password: hashed });
+        if(!user) {
+          res.status(404).json({
+            success: false,
+            message: "user not found",
+          });
+        }
 
-    res.status(200).json({
-      success: true,
-      message: "password reset successfully",
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      success: false,
-      message: "error in password change",
-      error: error.message,
-    });
-  }
-};
 
-exports.testController = async (req, res) => {
-  return res.json({
-    sucess: true,
-    message: "this is protected route",
-  });
-};
+        const hashed = await hashPassword(password);
+        await User.findByIdAndUpdate(user._id, {password : hashed}) ;
+
+        res.status(200).json({
+          success: true,
+          message: "password reset successfully",
+        });
+        
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({
+          success: false,
+          message: "error in password change",
+          error: error.message,
+        });
+        
+      }
+}
+
+exports.testController = async(req,res) => {
+
+    return res.json({
+        sucess:true,
+        message:"this is protected route"
+    })
+}
 
 //update prfole
 exports.updateProfileController = async (req, res) => {
@@ -188,11 +196,13 @@ exports.updateProfileController = async (req, res) => {
 //orders
 exports.getOrdersController = async (req, res) => {
   try {
-    const orders = await Order.find({ buyer: req.user._id })
+    const orders = await Order
+      .find({ buyer: req.user._id })
       .populate("products", "-photo")
       .populate("buyer", "name");
-
+      
     res.json(orders);
+
   } catch (error) {
     console.log(error);
     res.status(500).send({
@@ -206,7 +216,8 @@ exports.getOrdersController = async (req, res) => {
 //orders
 exports.getAllOrdersController = async (req, res) => {
   try {
-    const orders = await Order.find({})
+    const orders = await Order
+      .find({})
       .populate("products", "-photo")
       .populate("buyer", "name")
       .sort({ createdAt: "-1" });
