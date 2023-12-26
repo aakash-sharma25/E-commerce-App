@@ -1,0 +1,50 @@
+
+/* Navbar css */
+
+.navbar{
+    font-size: 17px;
+    line-height: 26px;
+    text-transform: uppercase;
+    box-shadow: 0 8px 6px -6px gray;
+    --webkit-box-shadow : 0 8px 6px -6px gray;
+    border-bottom: 0px solid gray !important;
+}
+.nav-link{
+    font-size: 300;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.active {
+    border-bottom: 2px solid black;
+}
+
+
+/* footer */
+
+.footer{
+    color: white;
+    background-color: rgb(16, 15, 15);
+    padding: 20px;
+}
+
+.footer a{
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+}
+
+.footer a:hover{
+    color: #ffefba;
+    border-bottom:1px solid #ffefba;
+}
+
+/*  */
+.product-link{
+    text-decoration: none !important;
+    color: black !important;
+    
+}

@@ -1,0 +1,15 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background-color: #eff6ff;
+ 
+}
+
+.text-border{
+  border-bottom: 3px solid;
+  border-image: linear-gradient(to right, royalblue 30%, transparent 71%) 100% 1;
+}
