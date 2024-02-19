@@ -237,9 +237,10 @@ exports.orderStatusController = async (req, res) => {
   try {
     const { orderId } = req.params;
     const { status } = req.body;
+    console.log("this is status comming from the client",status,"this is status comming from the client")
     const orders = await Order.findByIdAndUpdate(
       orderId,
-      { status },
+      { status:status },
       { new: true }
     );
     res.json(orders);
