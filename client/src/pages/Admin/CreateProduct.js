@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { Select } from "antd";
-import { useNavigate } from "react-router-dom";
 import AdminMenu from "../../components/Layout/AdminMenu";
 import {
   Box,
@@ -150,14 +150,14 @@ const CreateProduct = () => {
               <TextField
                 type="number"
                 value={price}
-                label="write a Price"
+                label="Write a Price"
                 onChange={(e) => setPrice(e.target.value)}
                 InputProps={{
                   inputProps: {
-                    min: 0, // Set the minimum value
+                    min: 0,
                     
                   },
-                  endAdornment: <></>, // Empty fragment to hide the icons
+                  endAdornment: <></>, 
                 }}
               />
 
