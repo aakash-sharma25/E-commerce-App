@@ -157,16 +157,16 @@ const ProductDetails = () => {
       </Stack>
 
       <Divider />
-
-      <Stack
-        flexWrap={"wrap"}
-        justifyContent={"space-evenly"}
-        gap={6}
-        marginBlock={5}
-      >
-        <Typography variant="h5" textAlign={"center"} fontWeight={600}>
+      <Typography variant="h5" textAlign={"center"} fontWeight={600} marginBlock={10}>
           Related Products
         </Typography>
+      <Stack
+        flexWrap={"wrap"}
+        gap={6}
+        marginBlock={5}
+        direction={"row"}
+      >
+       
 
         {relatedProducts?.map((p) => (
           <Card sx={{ width: "300px" }} key={p.name}>

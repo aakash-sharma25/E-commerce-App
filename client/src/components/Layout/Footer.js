@@ -7,27 +7,27 @@ const Footer = () => {
   return (
     <Box
       sx={{
-        backgroundColor: "lightgray",
-        padding: "20px",
+        backgroundColor: "lightgray", 
+        padding: "20px", 
         zIndex: 2000,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "column",
-        gap: "15px",
+        gap: "15px", 
       }}
     >
       <Box>All right reserved &copy; Aakash Sharma</Box>
       <Box>
-        <Button sx={{ color: "red" }} onClick={() => navigate("/about")}>
+        <Button sx={{ color: "red" }}>
           About
         </Button>
         |
-        <Button sx={{ color: "red" }} onClick={() => navigate("/contact")}>
+        <Button sx={{ color: "red" }}>
           Contact
         </Button>
         |
-        <Button sx={{ color: "red" }} onClick={() => navigate("/privacy")}>
+        <Button sx={{ color: "red" }}>
           Privacy Policy
         </Button>
       </Box>

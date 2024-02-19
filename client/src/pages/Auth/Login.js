@@ -58,7 +58,6 @@ const Login = () => {
   const submitHandler = async (e) => {
     setloading(true);
     e.preventDefault();
-    // console.log(formdata);
     try {
       const email = formdata.email;
       const password = formdata.password;
@@ -95,19 +94,6 @@ const Login = () => {
   };
   return (
     <>
-      {/* {loading ? (
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            height: "100vh",
-          }}
-        >
-          <CircularProgress />
-        </Box>
-      ) : (
-        <> */}
       <Box
         sx={{
           display: "flex",
@@ -129,29 +115,24 @@ const Login = () => {
             <Stack spacing={1} direction={"column"}>
               {/* <Typography>Enter Email Address : </Typography> */}
               <TextField
-                // size="small"
                 required
                 name="email"
                 type="email"
-                id="outlined-basic"
                 label="Enter Email"
-                // placeholder="Email"
                 variant="outlined"
                 onChange={changeHandler}
+                value={formdata.email}
               />
             </Stack>
             <Stack spacing={1} direction={"column"}>
-              {/* <Typography>Enter Password</Typography>{" "} */}
               <TextField
-                // size="small"
                 required
                 name="password"
-                id="outlined-basic"
                 label="Enter Password"
-                placeholder="Password"
                 type={!visible ? "password" : "text"}
                 variant="outlined"
                 onChange={changeHandler}
+                value={formdata.password}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -174,7 +155,7 @@ const Login = () => {
                   variant="span"
                   sx={{ color: "blue", cursor: "pointer" }}
                 >
-                 Click Here
+                  Click Here
                 </Typography>{" "}
               </Typography>
             </Stack>
@@ -186,6 +167,20 @@ const Login = () => {
               endIcon={!loading && <FaSave />}
             >
               {loading ? <CircularProgress size={24} /> : "Submit"}
+            </Button>
+
+            <Button
+              disabled={loading}
+              variant="contained"
+              // endIcon={!loading && <FaSave />}
+              onClick={(e) => {
+                setformdata({
+                  email:"guest@guest.com",
+                  password: "123456",
+                });
+              }}
+            >
+              {loading ? <CircularProgress size={24} /> : "Guest credential"}
             </Button>
           </Stack>
           <Box marginTop={4}>

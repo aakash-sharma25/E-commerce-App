@@ -28,6 +28,7 @@ const CreateProduct = () => {
   const [quantity, setQuantity] = useState("");
   const [shipping, setShipping] = useState("");
   const [photo, setPhoto] = useState("");
+  const [loading, setloading] = useState(false);
 
   //get all category
   const getAllCategory = async () => {
@@ -49,6 +50,7 @@ const CreateProduct = () => {
 
   //create product function
   const handleCreate = async (e) => {
+    setloading(true);
     e.preventDefault();
     try {
       const productData = new FormData();
@@ -62,7 +64,7 @@ const CreateProduct = () => {
         "/api/v1/product/create-product",
         productData
       );
-      console.log("data response on create-product", data);
+      // console.log("data response on create-product", data);
       if (data?.data?.success) {
         toast.success("Product Created Successfully");
         navigate("/dashboard/admin/products");
@@ -74,6 +76,8 @@ const CreateProduct = () => {
       console.log(error);
       toast.error(error.response.data.message);
       console.log(error.response.data.message);
+    }finally{
+      setloading(false)
     }
   };
 
@@ -164,10 +168,10 @@ const CreateProduct = () => {
                 onChange={(e) => setQuantity(e.target.value)}
                 InputProps={{
                   inputProps: {
-                    min: 0, // Set the minimum value
+                    min: 0, 
                    
                   },
-                  endAdornment: <></>, // Empty fragment to hide the icons
+                  endAdornment: <></>, 
                 }}
               />
               <label>select Shipping</label>
@@ -181,7 +185,7 @@ const CreateProduct = () => {
                    <Option value="1">Yes</Option>
                  </Select>
                
-                 <Button variant="contained" onClick={handleCreate}>
+                 <Button variant="contained" onClick={handleCreate} disabled={loading}>
                    CREATE PRODUCT
                  </Button>
              
@@ -190,117 +194,7 @@ const CreateProduct = () => {
         </Box>
       </Stack>
     </Container>
-    // <div >
-    //   <div className="container-fluid m-3 p-3">
-    //     <div className="row">
-    //       <div className="col-md-3">
-    //         <AdminMenu />
-    //       </div>
-    //       <div className="col-md-9">
-    //         <h1>Create Product</h1>
-    //         <div className="m-1 w-75">
-    //           <Select
-    //             bordered={false}
-    //             placeholder="Select a category"
-    //             size="large"
-    //             showSearch
-    //             className="form-select mb-3"
-    //             onChange={(value) => {
-    //               setCategory(value);
-    //             }}
-    //           >
-    //             {categories?.map((c) => (
-    //               <Option key={c._id} value={c._id}>
-    //                 {c.name}
-    //               </Option>
-    //             ))}
-    //           </Select>
-    //           <div className="mb-3">
-    //             <label className="btn btn-outline-secondary col-md-12">
-    //               {photo ? photo.name : "Upload Photo"}
-    //               <input
-    //                 type="file"
-    //                 name="photo"
-    //                 accept="image/*"
-    //                 onChange={(e) => setPhoto(e.target.files[0])}
-    //                 hidden
-    //               />
-    //             </label>
-    //           </div>
-    //           <div className="mb-3">
-    //             {photo && (
-    //               <div className="text-center">
-    //                 <img
-    //                   src={URL.createObjectURL(photo)}
-    //                   alt="product_photo"
-    //                   height={"200px"}
-    //                   className="img img-responsive"
-    //                 />
-    //               </div>
-    //             )}
-    //           </div>
-    //           <div className="mb-3">
-    //             <input
-    //               type="text"
-    //               value={name}
-    //               placeholder="write a name"
-    //               className="form-control"
-    //               onChange={(e) => setName(e.target.value)}
-    //             />
-    //           </div>
-    //           <div className="mb-3">
-    //             <textarea
-    //               type="text"
-    //               value={description}
-    //               placeholder="write a description"
-    //               className="form-control"
-    //               onChange={(e) => setDescription(e.target.value)}
-    //             />
-    //           </div>
-
-    //           <div className="mb-3">
-    //             <input
-    //               type="number"
-    //               value={price}
-    //               placeholder="write a Price"
-    //               className="form-control"
-    //               onChange={(e) => setPrice(e.target.value)}
-    //             />
-    //           </div>
-    //           <div className="mb-3">
-    //             <input
-    //               type="number"
-    //               value={quantity}
-    //               placeholder="write a quantity"
-    //               className="form-control"
-    //               onChange={(e) => setQuantity(e.target.value)}
-    //             />
-    //           </div>
-    //           <div className="mb-3">
-    //             <Select
-    //               bordered={false}
-    //               placeholder="Select Shipping "
-    //               size="large"
-    //               showSearch
-    //               className="form-select mb-3"
-    //               onChange={(value) => {
-    //                 setShipping(value);
-    //               }}
-    //             >
-    //               <Option value="0">No</Option>
-    //               <Option value="1">Yes</Option>
-    //             </Select>
-    //           </div>
-    //           <div className="mb-3">
-    //             <button className="btn btn-primary" onClick={handleCreate}>
-    //               CREATE PRODUCT
-    //             </button>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
+   
   );
 };
 

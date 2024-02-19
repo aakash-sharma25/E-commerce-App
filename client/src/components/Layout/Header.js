@@ -269,8 +269,8 @@ const Header = () => {
                     >
                       <Tooltip title="Open settings">
                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                          <Avatar alt="Remy Sharp">
-                            {auth?.user?.name[0]}
+                          <Avatar alt="Avatar">
+                            {/* {auth?.user?.name[0]} */}
                           </Avatar>
                           {/* <Avatar > A </Avatar> */}
                         </IconButton>

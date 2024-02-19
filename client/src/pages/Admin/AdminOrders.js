@@ -17,6 +17,7 @@ import {
   useMediaQuery,
   MenuItem
 } from "@mui/material";
+import toast from "react-hot-toast";
 
 const AdminOrders = () => {
   const [status, setStatus] = useState([
@@ -43,12 +44,15 @@ const AdminOrders = () => {
   }, [auth?.token]);
 
   const handleChange = async (orderId, value) => {
+    // console.log(orderId,value?.target?.value)
     try {
       const { data } = await axios.put(`/api/v1/auth/order-status/${orderId}`, {
-        status: value,
+        status: value?.target?.value,
       });
+      toast.success("status updated successfully")
       getOrders();
     } catch (error) {
+      toast.error("unable to change status")
       console.log(error);
     }
   };

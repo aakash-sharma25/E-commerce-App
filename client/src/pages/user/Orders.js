@@ -52,12 +52,11 @@ const Orders = () => {
           <UserMenu />
 
           <Box width={matches?"70%":"100%"} sx={{overflow:"scroll"}} height={"80vh"} >
-            {/* <Paper elevation={2} sx={{padding:3}}> */}
             <Typography variant="h4" textAlign={"center"} mb={3}>
               Your Orders
             </Typography>
             <Stack >
-              {orders?.map((o, i) => {
+              {orders.length > 0 ? (orders?.map((o, i) => {
                 return (
                   <Stack>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -123,60 +122,10 @@ const Orders = () => {
                    
                   </Stack>
                 );
-              })}
+              })) : (<h1>No product found to display</h1>)}
 
-              {/* {orders?.map((o, i) => {
-              return (
-                <Box >
-                  <table >
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Buyer</th>
-                        <th scope="col"> date</th>
-                        <th scope="col">Payment</th>
-                        <th scope="col">Quantity</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>{i + 1}</td>
-                        <td>{o?.status}</td>
-                        <td>{o?.buyer?.name}</td>
-                        <td>{moment(o?.createAt).fromNow()}</td>
-                        <td>{o?.payment.success ? "Success" : "Failed"}</td>
-                        <td>{o?.products?.length}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <div className="container">
-                    {o?.products?.map((p, i) => (
-                      <div className="row mb-2 p-3 card flex-row" key={p._id}>
-                        <div className="col-md-4">
-                          <img
-                            src={`/api/v1/product/product-photo/${p._id}`}
-                            className="card-img-top"
-                            alt={p.name}
-                            width="100px"
-                            height={"100px"}
-                          />
-                        </div>
-                        <div className="col-md-8">
-                          <p>{p.name}</p>
-                          <p>{p.description.substring(0, 30)}</p>
-                          <p>Price : {p.price}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </Box>
-              );
-            })}
-           */}
+          
             </Stack>
-
-            {/* </Paper> */}
           </Box>
         </Stack>
       </Container>
